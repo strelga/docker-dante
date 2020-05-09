@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Original credit Henry J Schmale <hschmale16@gmail.com>
+# https://www.henryschmale.org/2019/04/30/incr-semver.html
+
+# bump_version patch
+
+function bump_semver {
+    IFS='.' read -ra version <<< "$1"
+    [[ "${#version[@]}" -ne 3 ]] && echo "Error: Invalid semver string" && return 1
+
+    level=$2
+
+    patch=${version[2]}
+    minor=${version[1]}
+    major=${version[0]}
+
+    case $level in
+        patch)
+            patch=$((patch+1))
+        ;;
+        minor)
+            patch=0
+            minor=$((minor+1))
+        ;;
+        major)
+            patch=0
+            minor=0
+            major=$((major+1))
+        ;;
+        *)
+            echo "Error: Invalid level passed"
+            return 2
+    esac
+
+    printf "$major.$minor.$patch"
+}
+
+VERSION=$(cat ./VERSION)
+LEVEL=$1
+
+[[ -z "$LEVEL" ]] && echo "Error: Missing semver level" && return 1
+
+if NEW_VERSION=$(bump_semver $VERSION $LEVEL); then
+    printf $NEW_VERSION > ./VERSION
+    echo "Version is set to $NEW_VERSION"
+else
+    echo $NEW_VERSION
+    exit $?
+fi
