@@ -1,0 +1,8 @@
+#!/bin/sh
+
+USERNAME=$1
+PASSWORD=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c12)
+
+printf "${PASSWORD}\n${PASSWORD}\n" | adduser ${USERNAME}
+
+echo "Created user $USERNAME with password $PASSWORD"
