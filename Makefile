@@ -20,6 +20,22 @@ run-docker:
 	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/run_docker
 
 # -------------------------------------
+# user management targets
+# -------------------------------------
+.PHONY: create-user
+create-user:
+	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) \
+	USERNAME=$(USERNAME) \
+	PASSWORD=$(PASSWORD) \
+		./tools/container_create_user
+
+.PHONY: remove-user
+remove-user:
+	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) \
+	USERNAME=$(USERNAME) \
+		./tools/container_remove_user
+
+# -------------------------------------
 # release targets
 # -------------------------------------
 .PHONY: release

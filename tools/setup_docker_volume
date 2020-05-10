@@ -1,7 +1,7 @@
 #!/bin/bash
 
-[[ -z $DANTE_SERVICE_NAME ]] && echo "Error: Missing DANTE_SERVICE_NAME env variable" && exit 1
-
-DANTE_VOLUME="dante-data-$DANTE_SERVICE_NAME"
+if ! source ./tools/env; then
+    exit 1
+fi
 
 docker volume create --name $DANTE_VOLUME

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+USERNAME="$USERNAME"
+PASSWORD="$PASSWORD" # optional
+
+if ! source ./tools/env; then
+    exit 1
+fi
+
+docker exec -it $DANTE_CONTAINER_NAME create_user $USERNAME $PASSWORD
