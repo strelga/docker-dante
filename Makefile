@@ -1,6 +1,21 @@
 IMAGE_NAME := strelga/docker-dante
 VERSION=$(shell cat ./VERSION)
 
+# -------------------------------------
+# setup targets
+# -------------------------------------
+.PHONY: setup-docker-volume
+setup-docker-volume:
+	DANTE_DATA=$$DANTE_DATA ./tools/setup_docker_volume
+
+.PHONY: setup-systemd-service
+setup-systemd-service:
+	SERVICE_NAME=$$SERVICE_NAME ./tools/setup_systemd_service
+
+
+# -------------------------------------
+# release targets
+# -------------------------------------
 .PHONY: release
 docker-release: docker-build-tag docker-push-latest-tag
 

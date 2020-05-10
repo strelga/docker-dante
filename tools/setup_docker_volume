@@ -1,0 +1,6 @@
+#!/bin/sh
+
+[[ -z $DANTE_DATA ]] && echo "Error: Env variable DANTE_DATA is not set" && exit 1
+
+docker volume create --name $DANTE_DATA
+docker run -v $DANTE_DATA:/etc/openvpn --log-driver=none --rm strelga/docker-dante
