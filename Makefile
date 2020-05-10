@@ -12,7 +12,6 @@ setup-docker-volume:
 setup-systemd-service:
 	SERVICE_NAME=$$SERVICE_NAME ./tools/setup_systemd_service
 
-
 # -------------------------------------
 # release targets
 # -------------------------------------
