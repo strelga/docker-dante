@@ -15,6 +15,10 @@ setup-systemd-service:
 	cp ./tools/docker-dante@.service /etc/systemd/system/ && \
 	systemctl enable --now docker-openvpn@$$SERVICE_NAME.service
 
+.PHONY: run-docker
+run-docker:
+	SERVICE_NAME=$$SERVICE_NAME ./tools/run_docker
+
 # -------------------------------------
 # release targets
 # -------------------------------------
