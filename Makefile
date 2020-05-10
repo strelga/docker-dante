@@ -21,6 +21,9 @@ build:
 
 .PHONY: patch minor major
 patch minor major:
-	./tools/bump_version $@ && \
-	git tag $(VERSION) -am $(VERSION) && \
-	git push && git push origin $(VERSION)
+	NEW_VERSION=$$(./tools/bump_version $(VERSION) $@) && \
+	printf $$NEW_VERSION > ./VERSION && \
+	echo "New version $$NEW_VERSION" && \
+	git add . && git commit -m $$NEW_VERSION && \
+	git tag $$NEW_VERSION -am $$NEW_VERSION && \
+	git push && git push origin $$NEW_VERSION
