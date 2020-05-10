@@ -10,5 +10,6 @@ fi
 
 while IFS='=' read -r login password
 do
-    create_user login password
-done < $USERS_FILE
+    [[ -z $login ]] && continue
+    SKIP_VOLUME_UPDATE=1 create_user $login $password
+done < "$USERS_FILE"

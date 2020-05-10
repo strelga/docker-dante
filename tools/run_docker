@@ -7,8 +7,10 @@ DANTE_VOLUME="dante-data-$SERVICE_NAME"
 
 docker run \
     --name $DANTE_CONTAINER_NAME \
-    -v $DANTE_VOLUME:/etc/dante
+    -v $DANTE_VOLUME:/etc/dante \
     --log-driver=none \
     -p 1080:1080 \
     -d \
-    strelga/docker-dante
+    strelga/docker-dante:latest
+
+echo "Run container $DANTE_CONTAINER_NAME with volume $DANTE_VOLUME"

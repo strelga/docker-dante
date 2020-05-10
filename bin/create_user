@@ -1,10 +1,19 @@
 #!/bin/bash
 
 USERNAME=$1
-PASSWORD=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c12)
+[[ -z "$2" ]] \
+    && PASSWORD=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c12) \
+    || PASSWORD=$2
 
-printf "${PASSWORD}\n${PASSWORD}\n" | adduser ${USERNAME}
+if id -u $USERNAME &> /dev/null; then
+    echo "User $USERNAME already exists"
+    exit 1
+fi
 
-echo "$USERNAME=$PASSWORD" >> /etc/dante/dante_users
+printf "${PASSWORD}\n${PASSWORD}\n" | adduser ${USERNAME} > /dev/null
+
+if [ -z $SKIP_VOLUME_UPDATE ]; then
+    echo "$USERNAME=$PASSWORD" >> /etc/dante/dante_users
+fi
 
 echo "Created user $USERNAME with password $PASSWORD"
