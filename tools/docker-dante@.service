@@ -16,7 +16,7 @@ Restart=always
 # Modify IP6_PREFIX to match network config
 #Environment="IP6_PREFIX=2001:db8::/64"
 Environment="NAME=dante-%i"
-Environment="DATA_VOL=dante-data-%i"
+# Environment="DATA_VOL=dante-data-%i"
 Environment="IMG=strelga/docker-dante:latest"
 Environment="PORT=1080:1080"
 
@@ -36,7 +36,8 @@ ExecStartPre=-/usr/bin/docker pull $IMG
 ExecStartPre=/bin/sh -c 'test -z "$IP6_PREFIX" && exit 0; sysctl net.ipv6.conf.all.forwarding=1'
 
 # Main process
-ExecStart=/usr/bin/docker run --rm -v ${DATA_VOL}:/ --name ${NAME} -p ${PORT} ${IMG}
+# ExecStart=/usr/bin/docker run --rm -v ${DATA_VOL}:/ --name ${NAME} -p ${PORT} ${IMG}
+ExecStart=/usr/bin/docker run --rm --name ${NAME} -p ${PORT} ${IMG}
 
 # IPv6: Add static route for IPv6 after it starts up
 ExecStartPost=/bin/sh -c 'test -z "${IP6_PREFIX}" && exit 0; sleep 1; ip route replace ${IP6_PREFIX} via $(docker inspect -f "{{ .NetworkSettings.GlobalIPv6Address }}" $NAME ) dev docker0'

@@ -2,6 +2,6 @@
 
 [[ -z $SERVICE_NAME ]] && echo "Error: Missing SERVICE_NAME env variable" && exit 1
 
-DANTE_DATA="dante-$SERVICE_NAME"
+DANTE_DATA="dante-data-$SERVICE_NAME"
 
 docker volume create --name $DANTE_DATA
