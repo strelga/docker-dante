@@ -12,8 +12,8 @@ setup-docker-volume:
 setup-systemd-service:
 	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME); \
 	make setup-docker-volume && \
-	cp ./tools/docker-dante@.service /etc/systemd/system/ && \
-	systemctl enable --now docker-openvpn@$$DANTE_SERVICE_NAME.service
+	sudo cp ./tools/docker-dante@.service /etc/systemd/system/ && \
+	systemctl enable --now docker-dante@$$DANTE_SERVICE_NAME.service
 
 .PHONY: run-docker
 run-docker:
