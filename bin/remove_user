@@ -1,0 +1,11 @@
+#!/bin/bash
+
+USERNAME="$1"
+
+[[ -z $USERNAME ]] && echo "Error: Missing username in first argument" && exit 1
+
+user=$(grep $USERNAME /etc/dante/dante_users) || echo "Did not find such user in Volume"
+
+userdel $USERNAME && \
+    sed -i "/^$USERNAME=/d" /etc/dante/dante_users && \
+    echo "Deleted user $user"
