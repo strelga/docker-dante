@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 [[ -z $SERVICE_NAME ]] && echo "Error: Missing SERVICE_NAME env variable" && exit 1
 

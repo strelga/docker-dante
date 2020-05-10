@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Original credit Henry J Schmale <hschmale16@gmail.com>
 # https://www.henryschmale.org/2019/04/30/incr-semver.html
