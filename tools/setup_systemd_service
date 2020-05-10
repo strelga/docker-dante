@@ -1,3 +1,0 @@
-#!/bin/sh
-
-systemctl enable --now docker-openvpn@$SERVICE_NAME.service

@@ -6,11 +6,14 @@ VERSION=$(shell cat ./VERSION)
 # -------------------------------------
 .PHONY: setup-docker-volume
 setup-docker-volume:
-	DANTE_DATA=$$DANTE_DATA ./tools/setup_docker_volume
+	SERVICE_NAME=$$SERVICE_NAME ./tools/setup_docker_volume
 
 .PHONY: setup-systemd-service
 setup-systemd-service:
-	SERVICE_NAME=$$SERVICE_NAME ./tools/setup_systemd_service
+	SERVICE_NAME=$$SERVICE_NAME; \
+	make setup-docker-volume && \
+	cp ./tools/docker-dante@.service /etc/systemd/system/ && \
+	systemctl enable --now docker-openvpn@$$SERVICE_NAME.service
 
 # -------------------------------------
 # release targets
