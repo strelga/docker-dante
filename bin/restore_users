@@ -1,0 +1,14 @@
+#!/bin/bash
+
+USERS_FILE=/etc/dante/dante_users
+
+if [ ! -f $USERS_FILE ]
+then
+    echo "No users to restore"
+    exit 0
+fi
+
+while IFS='=' read -r login password
+do
+    create_user login password
+done < $USERS_FILE

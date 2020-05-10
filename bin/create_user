@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 USERNAME=$1
 PASSWORD=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c12)
 
 printf "${PASSWORD}\n${PASSWORD}\n" | adduser ${USERNAME}
+
+echo "$USERNAME=$PASSWORD" >> /etc/dante/dante_users
 
 echo "Created user $USERNAME with password $PASSWORD"

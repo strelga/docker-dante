@@ -3,5 +3,12 @@
 [[ -z $SERVICE_NAME ]] && echo "Error: Missing SERVICE_NAME env variable" && exit 1
 
 DANTE_CONTAINER_NAME="dante-$SERVICE_NAME"
+DANTE_VOLUME="dante-data-$SERVICE_NAME"
 
-docker run --name $DANTE_CONTAINER_NAME --log-driver=none -p 1080:1080 -d strelga/docker-dante
+docker run \
+    --name $DANTE_CONTAINER_NAME \
+    -v $DANTE_VOLUME:/etc/dante
+    --log-driver=none \
+    -p 1080:1080 \
+    -d \
+    strelga/docker-dante
