@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if ! source ./tools/env; then
+    exit 1
+fi
+
+docker exec -it $DANTE_CONTAINER_NAME reload_config
