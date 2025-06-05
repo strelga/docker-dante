@@ -12,6 +12,10 @@ endif
 run-docker:
 	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/run_docker
 
+.PHONY: reload-config
+reload-config:
+	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/container_reload_config
+
 # -------------------------------------
 # user management targets
 # -------------------------------------

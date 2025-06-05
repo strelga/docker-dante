@@ -1,3 +1,3 @@
 #!/bin/bash
 
-kill -HUP sockd
+pkill -HUP -f sockd
