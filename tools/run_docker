@@ -4,12 +4,14 @@ if ! source ./tools/env; then
     exit 1
 fi
 
-docker run \
-    --name $DANTE_CONTAINER_NAME \
-    -v $DANTE_VOLUME:/etc/dante \
-    --log-driver=none \
-    -p 1080:1080 \
-    -d \
-    strelga/docker-dante:latest
+mkdir -p ./etc
 
-echo "Run container $DANTE_CONTAINER_NAME with volume $DANTE_VOLUME"
+if ! [ -f ./etc/sockd.conf ]; then
+    cp ./etc-available/sockd.conf ./etc/sockd.conf
+fi
+
+if ! [ -f ./etc/users ]; then
+    touch ./etc/users
+fi
+
+docker-compose up -d --build dante

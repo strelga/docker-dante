@@ -2,5 +2,4 @@
 
 [[ -z $DANTE_SERVICE_NAME ]] && echo "Error: Missing DANTE_SERVICE_NAME env variable" && exit 1
 
-export DANTE_CONTAINER_NAME="dante-$DANTE_SERVICE_NAME"
-export DANTE_VOLUME="dante-data-$DANTE_SERVICE_NAME"
+export DANTE_CONTAINER_NAME="$DANTE_SERVICE_NAME"

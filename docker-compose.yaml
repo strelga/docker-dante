@@ -1,0 +1,14 @@
+services:
+  dante:
+    shm_size: 1gb
+    platform: linux/amd64
+    container_name: ${DANTE_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./etc/users:/etc/dante/dante_users:rw
+      - ./etc/sockd.conf:/etc/sockd.conf:rw
+    ports:
+      - 1080:1080
+    restart: always

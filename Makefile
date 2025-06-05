@@ -1,20 +1,13 @@
 IMAGE_NAME := strelga/docker-dante
 VERSION=$(shell cat ./VERSION)
 
+ifndef DANTE_SERVICE_NAME
+override DANTE_SERVICE_NAME = dante
+endif
+
 # -------------------------------------
 # setup targets
 # -------------------------------------
-.PHONY: setup-docker-volume
-setup-docker-volume:
-	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/setup_docker_volume
-
-.PHONY: setup-systemd-service
-setup-systemd-service:
-	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME); \
-	make setup-docker-volume && \
-	sudo cp ./tools/docker-dante@.service /etc/systemd/system/ && \
-	systemctl enable --now docker-dante@$$DANTE_SERVICE_NAME.service
-
 .PHONY: run-docker
 run-docker:
 	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/run_docker
