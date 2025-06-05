@@ -10,7 +10,7 @@ endif
 # -------------------------------------
 .PHONY: run-docker
 run-docker:
-	DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/run_docker
+	DANTE_PORT=${DANTE_PORT} DANTE_SERVICE_NAME=$(DANTE_SERVICE_NAME) ./tools/run_docker
 
 .PHONY: reload-config
 reload-config:
